@@ -16,6 +16,8 @@ namespace TimeTracker
 
         public TimeSpan TimelineResolution { get; set; }
 
+        public int? VerticalPosition { get; set; }
+
         public static UserConfig FromIni(string iniPath)
         {
             var parser = new FileIniDataParser();
@@ -24,6 +26,7 @@ namespace TimeTracker
             var workTimeEnd = data["Work"]["WorkTimeEnd"];
             var timelineFormat = data["Visual"]["TimelineFormat"];
             var timelineResolution = data["Visual"]["TimelineResolution"];
+            var filledVerticalPosition = int.TryParse(data["Visual"]["VerticalPosition"], out var verticalPosition);
 
             return new UserConfig
             {
@@ -31,6 +34,7 @@ namespace TimeTracker
                 WorkTimeEnd = DateTime.ParseExact(workTimeEnd, "HH:mm", CultureInfo.InvariantCulture).TimeOfDay,
                 TimelineFormat = timelineFormat,
                 TimelineResolution = TimeSpan.FromSeconds(double.Parse(timelineResolution)),
+                VerticalPosition = filledVerticalPosition ? verticalPosition : null as int?,
             };
         }
 

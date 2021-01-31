@@ -51,8 +51,8 @@ namespace TimeTracker
             UserConfig = UserConfig.FromIni("config.ini");
             VisualConfig = new VisualConfig
             {
-                ScreenWidth = (int)SystemParameters.FullPrimaryScreenWidth,
-                ScreenHeight = (int)SystemParameters.FullPrimaryScreenHeight,
+                ScreenWidth = (int)SystemParameters.PrimaryScreenWidth,
+                ScreenHeight = (int)SystemParameters.PrimaryScreenHeight,
                 MarginLeft = 50,
                 TaskbarDimenions = Helpers.GetTaskbarDimensions(),
             };
@@ -61,7 +61,7 @@ namespace TimeTracker
         private void InitVisuals()
         {
             // Set up window size
-            this.Top = VisualConfig.ScreenHeight - (this.Height + VisualConfig.TaskbarDimenions.Height);
+            this.Top = UserConfig.VerticalPosition ?? VisualConfig.ScreenHeight - (this.Height + VisualConfig.TaskbarDimenions.Height);
             this.Left = 0;
             this.Width = VisualConfig.ScreenWidth;
 
@@ -96,21 +96,16 @@ namespace TimeTracker
         {
             var now = DateTime.Now;
             var x = now.TimeOfDay;
-            if (x < UserConfig.WorkTimeStart || x > UserConfig.WorkTimeEnd)
-                return;
 
-            decimal left = ((x.Ticks * ActiveWidth) / WorktimeAmount) - ActiveWidth + VisualConfig.MarginLeft;
+            decimal left;
+            if (x < UserConfig.WorkTimeStart)
+                left = VisualConfig.MarginLeft / 2;
+            else if (x > UserConfig.WorkTimeEnd)
+                left = ActiveWidth + VisualConfig.MarginLeft / 2;
+            else 
+             left = ((x.Ticks * ActiveWidth) / WorktimeAmount) - ActiveWidth + VisualConfig.MarginLeft;
 
             Dispatcher.Invoke(() => Canvas.SetLeft(ClockHand, (int)left));
-        }
-
-        // Move bar up and down when mouse click and move
-        private void elTimeline_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-                this.DragMove();
-
-            e.Handled = true;
         }
     }
 }

@@ -11,7 +11,8 @@
         AllowsTransparency="True"
         Width="800" Height="47"
         Background="Transparent"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Topmost="True">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
@@ -24,14 +25,14 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="28"/>
+            <RowDefinition Height="29"/>
             <RowDefinition Height="17"/>
         </Grid.RowDefinitions>
-        <Canvas Margin="0,0,0,0" Height="28">
-            <local:LogBox Width="127" Height="28" Canvas.Top="0" Canvas.Left="200" />
-            <local:LogBox Width="127" Height="28" Canvas.Top="0" Canvas.Left="400" />
+        <Canvas Margin="0,0,0,0" Height="29">
+            <local:LogBox Width="127" Height="29" Canvas.Top="0" Canvas.Left="200" />
+            <local:LogBox Width="127" Height="29" Canvas.Top="0" Canvas.Left="400" />
         </Canvas>
-        <Canvas Grid.Row="1" Margin="0,2,0,0" Background="#40000000" Height="17" x:Name="elTimeline" MouseMove="elTimeline_MouseMove">
+        <Canvas Grid.Row="1" Margin="0,1,0,0" Background="#60000000" Height="17" x:Name="elTimeline">
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="9 AM" Canvas.Left="30" />
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="10 AM" Canvas.Left="127" />
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="11 AM" Canvas.Left="206" />
