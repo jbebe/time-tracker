@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -25,6 +26,15 @@ namespace TimeTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public IntPtr HWND { get; set; }
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            HWND = new WindowInteropHelper(this).Handle;
+        }
+
+        public static RoutedCommand ToggleTransparencyCommand = new RoutedCommand();
+
         public UserConfig UserConfig { get; set; }
 
         public VisualConfig VisualConfig { get; set; }
@@ -47,6 +57,7 @@ namespace TimeTracker
 
         public MainWindow()
         {
+            ToggleTransparencyCommand.InputGestures.Add(new KeyGesture(Key.A, ModifierKeys.Alt));
             InitializeComponent();
 
             // Custom
@@ -182,6 +193,20 @@ namespace TimeTracker
         private void SaveLogsToFile()
         {
             File.WriteAllText(UserConfig.DatabasePath, JsonConvert.SerializeObject(CurrentLogs));
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (LogContainer.Opacity == 0.5)
+            {
+                LogContainer.Opacity = 1;
+                Helpers.SetWindowExDefault(HWND);
+            }
+            else
+            {
+                LogContainer.Opacity = 0.5;
+                Helpers.SetWindowExTransparent(HWND);
+            }
         }
     }
 }

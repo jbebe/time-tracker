@@ -16,6 +16,9 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
     </WindowChrome.WindowChrome>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.ToggleTransparencyCommand}" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
     <Window.Resources>
         <Style x:Key="TimelineTextStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White" />
