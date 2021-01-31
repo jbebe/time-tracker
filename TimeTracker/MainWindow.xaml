@@ -28,11 +28,8 @@
             <RowDefinition Height="29"/>
             <RowDefinition Height="17"/>
         </Grid.RowDefinitions>
-        <Canvas Margin="0,0,0,0" Height="29">
-            <local:LogBox Width="127" Height="29" Canvas.Top="0" Canvas.Left="200" />
-            <local:LogBox Width="127" Height="29" Canvas.Top="0" Canvas.Left="400" />
-        </Canvas>
-        <Canvas Grid.Row="1" Margin="0,1,0,0" Background="#60000000" Height="17" x:Name="elTimeline">
+        <Canvas x:Name="LogContainer" Margin="0,0,0,0" Height="29" />
+        <Canvas Grid.Row="1" Margin="0,1,0,0" Background="#60000000" Height="17" x:Name="elTimeline" MouseMove="elTimeline_MouseMove" MouseLeftButtonUp="elTimeline_MouseLeftButtonUp">
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="9 AM" Canvas.Left="30" />
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="10 AM" Canvas.Left="127" />
             <TextBlock Style="{StaticResource TimelineTextStyle}" Text="11 AM" Canvas.Left="206" />

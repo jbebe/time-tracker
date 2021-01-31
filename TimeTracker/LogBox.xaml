@@ -6,11 +6,14 @@
              xmlns:local="clr-namespace:TimeTracker"
              mc:Ignorable="d" 
              d:DesignHeight="28" d:DesignWidth="127">
-    <Border Background="#007acc" BorderThickness="1" CornerRadius="3,3,0,0">
+    <Border Background="#007acc" BorderThickness="0" CornerRadius="3,3,0,0">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="40" Direction="90" ShadowDepth="0"></DropShadowEffect>
+        </Border.Effect>
         <Canvas>
-            <TextBlock Foreground="White" FontSize="10" FontWeight="Bold" Text="INT-2832" Canvas.Left="4" Canvas.Top="-1" />
-            <TextBlock Foreground="White" FontSize="10" Text="2h30m" Canvas.Left="91" Canvas.Top="-1" />
-            <TextBlock Foreground="#112266" FontSize="10" Text="PM Meeting" Canvas.Left="4" Canvas.Top="12" />
+            <TextBlock x:Name="el_Id" Foreground="White" FontSize="10" FontWeight="Bold" Canvas.Left="4" Canvas.Top="-1" />
+            <TextBlock x:Name="el_From" Foreground="White" FontSize="10" Canvas.Left="91" Canvas.Top="-1" />
+            <TextBlock x:Name="el_Comment" Foreground="#99ccff" FontSize="10" Canvas.Left="4" Canvas.Top="12" />
         </Canvas>
     </Border>
 </UserControl>

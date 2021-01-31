@@ -18,6 +18,8 @@ namespace TimeTracker
 
         public int? VerticalPosition { get; set; }
 
+        public string DatabasePath { get; set; }
+
         public static UserConfig FromIni(string iniPath)
         {
             var parser = new FileIniDataParser();
@@ -27,6 +29,7 @@ namespace TimeTracker
             var timelineFormat = data["Visual"]["TimelineFormat"];
             var timelineResolution = data["Visual"]["TimelineResolution"];
             var filledVerticalPosition = int.TryParse(data["Visual"]["VerticalPosition"], out var verticalPosition);
+            var databasePath = data["IO"]["DatabasePath"];
 
             return new UserConfig
             {
@@ -35,6 +38,7 @@ namespace TimeTracker
                 TimelineFormat = timelineFormat,
                 TimelineResolution = TimeSpan.FromSeconds(double.Parse(timelineResolution)),
                 VerticalPosition = filledVerticalPosition ? verticalPosition : null as int?,
+                DatabasePath = databasePath,
             };
         }
 
